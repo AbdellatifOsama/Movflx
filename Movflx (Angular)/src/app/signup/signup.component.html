@@ -1,0 +1,16 @@
+<div class="register-bg">
+    <div class="overlay d-flex justify-content-center align-items-center pt-5">
+        <form (ngSubmit)="submit()" class="p-5 d-flex flex-column form-container mt-5" [formGroup]="registerForm">
+            <p class="h3">Sign In</p>
+            <div>
+                <input formControlName="firstName" type="text" placeholder="First Name" class="form-input me-2" />
+                <input formControlName="lastName" type="text" placeholder="Last Name" class="form-input" />
+            </div>
+            <input formControlName="email" type="text" placeholder="Email Address" class="form-input" />
+            <input formControlName="phonenumber" type="tel" placeholder="Phone Number" class="form-input" />
+            <input formControlName="password" type="password" placeholder="Password" class="form-input" />
+            <input formControlName="confirmpassword" type="Confirmpassword" type="password" placeholder="Confirm Password" class="form-input" />
+            <button type="submit" class="main-btn" disabled title="This Part Under Development">Sign Up</button>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,105 @@
+<!-- Movie Details Start -->
+<div class="movie-details-container">
+    <div class="container py-5">
+        <div class="row align-items-center pb-3 my-3 my-md-5 pt-5">
+            <!-- Movie Details Img and Trailer Modal Start -->
+            <div class="col-lg-3">
+                <div class="w-fit-content mx-md-auto">
+                    <div class="position-relative">
+                        <img [src]="movieDetails.poster_path != null ? imgSrcPrefix + movieDetails.poster_path:'assets/images/image-not-found.png'"
+                            class="rounded-3 img-fluid" [alt]="movieDetails.title" [title]="movieDetails.title">
+                        <a class="play-icon" data-bs-toggle="modal" data-bs-target="#staticBackdrop"><img
+                                src="assets/images/play_icon.png" alt="Play Icon" title="Play"></a>
+                    </div>
+                    <!-- Trailer Modal Start-->
+                    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
+                        tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-lg modal-dialog-centered">
+                            <div class="modal-content bg-transparent">
+                                <div class="modal-header border-0 py-0">
+                                    <button type="button" class="btn-close text-white" data-bs-dismiss="modal"
+                                        aria-label="Close" (click)="ModalClose(MovieTrailerVideoURL)"><i
+                                            class="fa-solid fa-x"></i></button>
+                                </div>
+                                <div class="modal-body">
+                                    <iframe [src]="MovieTrailerVideoURL | safeUrl" title="YouTube video player"
+                                        frameborder="0"
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                        allowfullscreen class="trailer-link" id="iframe"></iframe>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Trailer Modal Start-->
+                </div>
+            </div>
+            <!-- Movie Details Img and Trailer Modal End -->
+            <!-- Movie Details info and Trailer Modal Start -->
+            <div class="col-lg-7 ms-0">
+                <div class="movie-deatils-content">
+                    <h4 class="movie-status mt-3 mb-0">{{movieDetails.status}}</h4>
+                    <h2 class="movie-name">{{movieFirstName}} <span class="main-color">{{movieLastName}}</span>
+                    </h2>
+                    <div class="home-movie-info d-block d-md-flex align-items-center my-2 my-md-4">
+                        <div class="d-flex align-items-center">
+                            <p>pg 18</p>
+                            <p>hd</p>
+                            <p class="main-hover">{{movieDetails.genres[0]?.name}},</p>
+                            <p class="main-hover">{{movieDetails.genres[1]?.name}}</p>
+                        </div>
+                        <div class="d-flex align-items-center mt-2 mt-md-0">
+                            <i class="fa-solid fa-calendar-days main-color mx-2"></i>
+                            <p>{{movieDetails.release_date.slice(0,4)}}</p>
+                            <i class="fa-regular fa-clock main-color mx-2"></i>
+                            <p class="text-lowercase">{{movieDetails.runtime}} min</p>
+                        </div>
+                    </div>
+                    <p class="secondary-color">{{movieDetails.overview}}</p>
+                </div>
+                <div class="add-to-fav">
+                    <p class="mb-0 cursor-pointer"><i class="fa-regular fa-heart me-2"></i>Add to Favourite</p>
+                </div>
+            </div>
+            <!-- Movie Details info and Trailer Modal End -->
+        </div>
+    </div>
+</div>
+<!-- Movie Details End -->
+<!-- Similar Movies Section Start -->
+<section class="bg-black py-5">
+    <div class="container">
+        <div class="pt-5 pb-2 mb-2">
+            <h5 class="section-sub-heading">ONLINE STREAMING</h5>
+            <h2 class="section-heading">Similar Movies</h2>
+        </div>
+        <owl-carousel-o [options]="customOptions" data-aos="fade-down" data-aos-duration="600">
+            <ng-container *ngFor="let similarMovie of similarMoviesList ; let i=index">
+                <ng-template carouselSlide>
+                    <a [routerLink]="['/moviedetails',similarMovie.id]" class="position-relative"><img
+                            [src]="similarMovie.poster_path != null ? imgSrcPrefix + similarMovie.poster_path:'assets/images/image-not-found.png'"
+                            [alt]="similarMovie.title" [title]="similarMovie.title" class="img-fluid mb-4 rounded-3 h-452">
+                        <div class="position-absolute top-0 end-0 rate">
+                            <span>{{similarMovie.vote_average.toFixed(1)}}</span>
+                        </div>
+                    </a>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h3 class="title w-75 main-hover cursor-pointer"
+                            [routerLink]="['/moviedetails',similarMovie.id]">
+                            {{similarMovie.title}}</h3>
+                        <p class="release-date main-color">{{similarMovie.release_date.slice(0,4)}}</p>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <p class="language main-color">{{similarMovie.original_language}}</p>
+                        <div>
+                            <p class="duration">
+                                <i class="fa-regular fa-clock me-1 main-color"></i>
+                                {{similarMoviesDetailsList[i]?.runtime}} min
+                            </p>
+                        </div>
+                    </div>
+                </ng-template>
+            </ng-container>
+        </owl-carousel-o>
+    </div>
+</section>
+<!-- Similar Movies Section End -->

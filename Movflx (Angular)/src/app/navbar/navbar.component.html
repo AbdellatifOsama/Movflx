@@ -1,0 +1,115 @@
+<!-- Awesome Modified Bootstrap Nav Start -->
+<nav class="navbar navbar-expand-lg pt-4">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">
+            <img src="assets/images/logo.png" alt="Movflx Logo" title="Movflx">
+        </a>
+        <!-- Search and Language Choose on Small Screen Start -->
+        <div class="d-flex">
+            <div class="d-flex align-items-center d-lg-none">
+                <a class="position-relative">
+                    <i class="fa-solid fa-magnifying-glass text-white main-hover"
+                        (click)="searchCollapse('small-search-container')"></i>
+                    <div class="search-div d-none" id="small-search-container">
+                        <div
+                            class="d-flex justify-content-between align-items-center input-container position-relative">
+                            <input type="text" class="search-input" placeholder="Find Movie" [(ngModel)]="movieName">
+                            <i class="fa-solid fa-magnifying-glass main-color me-3" [routerLink]="['/search']"
+                                [queryParams]="{keyword : movieName , type : 'movie' , page : 1}"
+                                (click)="searchCollapse('small-search-container')"></i>
+                        </div>
+                    </div>
+                </a>
+                <a class="nav-link">
+                    <i class="fa-solid fa-globe"></i>
+                </a>
+                <select class="bg-transparent text-white mx-0 lang-select">
+                    <option class="text-black" selected>EN</option>
+                    <option class="text-black" value="1">AR</option>
+                    <option class="text-black" value="2">FR</option>
+                    <option class="text-black" value="3">DE</option>
+                </select>
+            </div>
+            <i class="fa-solid fa-bars navbar-toggler fa-2x" type="button" data-bs-toggle="offcanvas"
+                data-bs-target="#offcanvasNavbar"></i>
+        </div>
+        <!-- Search and Language Choose on Small Screen End -->
+        <!-- Modified Offcanvas Div Start -->
+        <div class="offcanvas offcanvas-end sidebar flex-lg-row pt-3 pt-lg-0" tabindex="-1" id="offcanvasNavbar"
+            aria-labelledby="offcanvasNavbarLabel">
+            <!-- Offcanvas Header on Small Screen Start -->
+            <div class="offcanvas-header">
+                <h5 class="offcanvas-title" id="offcanvasNavbarLabel">
+                    <img src="assets/images/logo.png" alt="Movflx Logo" title="Movflx">
+                </h5>
+                <i class="fa-solid fa-xmark fa-2x cursor-pointer" data-bs-dismiss="offcanvas" aria-label="Close"></i>
+            </div>
+            <!-- Offcanvas Header on Small Screen End -->
+            <!-- Main Nav Links Start -->
+            <ul class="navbar-nav nav-link-style mb-2 mb-lg-0 ms-lg-auto">
+                <li class="nav-item" data-bs-dismiss="offcanvas" aria-label="Close">
+                    <a class="nav-link main-hover" routerLink="/home" routerLinkActive="active-link">home</a>
+                </li>
+                <li class="nav-item" data-bs-dismiss="offcanvas" aria-label="Close">
+                    <a class="nav-link main-hover" routerLink="/movie" routerLinkActive="active-link"
+                        [queryParams]="{page : 1}">movie</a>
+                </li>
+                <li class="nav-item" data-bs-dismiss="offcanvas" aria-label="Close">
+                    <a class="nav-link main-hover text-nowrap" routerLink="/tv-show" routerLinkActive="active-link"
+                        [queryParams]="{page : 1}">tv
+                        show</a>
+                </li>
+                <li class="nav-item" data-bs-dismiss="offcanvas" aria-label="Close">
+                    <a class="nav-link main-hover" routerLink="/pricing" routerLinkActive="active-link">pricing</a>
+                </li>
+                <!-- 
+                    <li class="nav-item" data-bs-dismiss="offcanvas" aria-label="Close">
+                    <a class="nav-link main-hover" routerLink="/about" routerLinkActive="active-link">about</a>
+                </li>
+                -->
+                <li class="nav-item" data-bs-dismiss="offcanvas" aria-label="Close">
+                    <a class="nav-link main-hover" routerLink="/contacts" routerLinkActive="active-link">contacts</a>
+                </li>
+            </ul>
+            <!-- Main Nav Links End -->
+            <!-- Search and Language Choose on large Screen Start-->
+            <ul class="navbar-nav align-items-center mb-2 mb-lg-0 ms-lg-auto mt-5 mt-lg-0">
+                <li class="nav-item">
+                    <a class="d-none d-lg-block position-relative">
+                        <i class="fa-solid fa-magnifying-glass text-white main-hover"
+                            (click)="searchCollapse('search-container')"></i>
+                        <div class="search-div d-none" id="search-container">
+                            <div
+                                class="d-flex justify-content-between align-items-center input-container position-relative">
+                                <input type="text" class="search-input" placeholder="Find Movie"
+                                    [(ngModel)]="movieName">
+                                <i class="fa-solid fa-magnifying-glass main-color me-3" [routerLink]="['/search']"
+                                    [queryParams]="{keyword : movieName , type : 'movie' , page : 1}"
+                                    (click)="searchCollapse('search-container')"></i>
+                            </div>
+                        </div>
+                    </a>
+                </li>
+                <li class=" nav-item lang d-none d-lg-block">
+                    <a class="nav-link">
+                        <i class="fa-solid fa-globe"></i>
+                    </a>
+                </li>
+                <li class="nav-item d-none d-lg-block">
+                    <select class="bg-transparent text-white mx-0 lang-select">
+                        <option class="text-black" selected>EN</option>
+                        <option class="text-black" value="1">AR</option>
+                        <option class="text-black" value="2">FR</option>
+                        <option class="text-black" value="3">DE</option>
+                    </select>
+                </li>
+                <li class="nav-item">
+                    <a class="main-btn text-decoration-none text-nowrap ms-0 ms-lg-4" title="This Part Under Development">Sign in</a>
+                </li>
+            </ul>
+            <!-- Search and Language Choose on large Screen End-->
+        </div>
+        <!-- Modified Offcanvas Div End -->
+    </div>
+</nav>
+<!-- Awesome Modified Bootstrap Nav End -->

@@ -1,0 +1,360 @@
+<!-- Main Home Start -->
+<div class="container-fluid home-container py-5">
+    <div class="row py-5 height-responsive">
+        <div class="pt-5" data-aos="fade-down" data-aos-duration="800" data-aos-delay="100">
+            <div class="home-header">
+                <h1 class="h3 mx-0 mt-0 mt-md-5 main-color">Movflx</h1>
+                <h2>Unlimited <span class="main-color">Movie</span>, TVs<br> Shows, & More.</h2>
+            </div>
+            <div class="home-movie-info d-block d-md-flex align-items-center">
+                <div class="d-flex align-items-center">
+                    <p>pg 18</p>
+                    <p>hd</p>
+                    <p class="main-hover">romance,</p>
+                    <p class="main-hover">Drama</p>
+                </div>
+                <div class="d-flex align-items-center">
+                    <i class="fa-solid fa-calendar-days main-color mx-2"></i>
+                    <p>2021</p>
+                    <i class="fa-regular fa-clock main-color mx-2"></i>
+                    <p class="text-lowercase">128 min</p>
+                </div>
+            </div>
+            <div class="mt-5">
+                <button class="main-btn"><i class="fa-solid fa-play me-2"></i>Watch now</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Main Home End -->
+<!-- trending Section Start -->
+<section class="trending-movies-main-bg">
+    <div class="trending-movies-sub-bg py-5">
+        <div class="container py-5">
+            <div class="row align-items-center justify-content-center justify-content-lg-between">
+                <div class="col-lg-6 w-fit-content">
+                    <div>
+                        <h6 class="section-sub-heading center">online streaming</h6>
+                        <h2 class="section-heading">trending {{currentTrendingActive}}s</h2>
+                    </div>
+                </div>
+                <!-- trending Tabs -->
+                <div class="col-lg-6 mt-3 mt-lg-0">
+                    <div class="d-flex justify-content-center justify-content-lg-end">
+                        <button [ngClass]="currentTrendingActive == 'movie'?'section-tab-active':'section-tab'"
+                            (click)="displayTrendingMovies()">movies</button>
+                        <button
+                            [ngClass]="currentTrendingActive == 'tv'?'section-tab-active text-nowrap':'section-tab text-nowrap'"
+                            (click)="getTrendingTvs()">tv shows</button>
+                        <button
+                            [ngClass]="currentTrendingActive == 'person'?'section-tab-active me-0':'section-tab me-0'"
+                            (click)="getTrendingPersons()">persons</button>
+                    </div>
+                </div>
+            </div>
+            <!-- trending Movies its Value come from Api and Fully integrated With Tabs -->
+            <div class="mt-4">
+                <!-- Each One Appear According to the Active Tab -->
+                <owl-carousel-o [options]="customOptions"
+                    *ngIf="currentTrendingDisplayed == 'movie' && trendingMoviesList.length > 0" data-aos="fade-down"
+                    data-aos-duration="600">
+                    <ng-container *ngFor="let trendingMovie of trendingMoviesList ; let i=index">
+                        <ng-template carouselSlide [id]="trendingMovie.id">
+                            <a [routerLink]="['/moviedetails',trendingMovie.id]" class="position-relative"><img
+                                    [src]="imgSrcPrefix + trendingMovie.poster_path" [alt]="trendingMovie.title"
+                                    [title]="trendingMovie.title" class="mb-4 rounded-3" width="333px" height="500px">
+                                <div class="position-absolute top-0 end-0 rate">
+                                    <span>{{trendingMovie.vote_average.toFixed(1)}}</span>
+                                </div>
+                            </a>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <h3 class="title w-75 main-hover cursor-pointer"
+                                    [routerLink]="['/moviedetails',trendingMovie.id]">
+                                    {{trendingMovie.title}}</h3>
+                                <p class="release-date main-color">{{trendingMovie.release_date.slice(0,4)}}</p>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <p class="language main-color">{{trendingMovie.original_language}}</p>
+                                <div>
+                                    <p *ngIf="movieDetailsList[i]?.runtime != 0; else alternative" class="duration">
+                                        <i class="fa-regular fa-clock me-1 main-color"></i>
+                                        {{movieDetailsList[i]?.runtime}} min
+                                    </p>
+                                    <ng-template #alternative>
+                                        <p>{{movieDetailsList[i]?.status}}</p>
+                                    </ng-template>
+                                </div>
+                            </div>
+                        </ng-template>
+                    </ng-container>
+                </owl-carousel-o>
+                <owl-carousel-o [options]="customOptions" *ngIf="currentTrendingDisplayed == 'tv'" data-aos="fade-down"
+                    data-aos-duration="600">
+                    <ng-container *ngFor="let trendingTv of trendingTvsList ; let i = index">
+                        <ng-template carouselSlide [id]="trendingTv.id">
+                            <div class="position-relative">
+                                <img [src]="imgSrcPrefix + trendingTv.poster_path" [alt]="trendingTv.name"
+                                    [title]="trendingTv.name" class="w-100 h-390 mb-4 rounded-3"
+                                    [routerLink]="['/tvdetails',trendingTv.id]">
+                                <div class="position-absolute top-0 end-0 rate">
+                                    <span>{{trendingTv.vote_average.toFixed(1)}}</span>
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <h4 class="title w-75 main-hover">{{trendingTv.name}}</h4>
+                                <p class="release-date main-color">{{trendingTv.first_air_date.slice(0,4)}}</p>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <p class="language main-color">{{trendingTv.original_language}}</p>
+                                <p>{{tvDetailsList[i]?.seasons.length}} Seasons</p>
+                            </div>
+                        </ng-template>
+                    </ng-container>
+                </owl-carousel-o>
+                <owl-carousel-o [options]="customOptions"
+                    *ngIf="currentTrendingDisplayed == 'person' && trendingPersonsList.length > 0" data-aos="fade-down"
+                    data-aos-duration="600">
+                    <ng-container *ngFor="let trendingPerson of trendingPersonsList">
+                        <ng-template carouselSlide [id]="trendingPerson.id" *ngIf="trendingPerson.profile_path != null">
+                            <div class="position-relative">
+                                <img [src]="imgSrcPrefix + trendingPerson.profile_path" [alt]="trendingPerson.name"
+                                    [title]="trendingPerson.name" class="w-100 mb-4 rounded-3">
+                                <h3 class="title main-hover">{{trendingPerson.name}}</h3>
+                            </div>
+                        </ng-template>
+                    </ng-container>
+                </owl-carousel-o>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- trending Section End -->
+<!-- Services Section Start -->
+<section class="container-fluid py-5 services-container">
+    <div class="container">
+        <div class="row py-5 justify-content-between overflow-hidden">
+            <div class="col-lg-5 mb-4 mb-lg-0" data-aos="fade-right" data-aos-duration="1100">
+                <img src="assets/images/services_img.jpg" class="w-100 h-100" alt="services_img">
+            </div>
+            <div class="col-lg-6" data-aos="fade-left" data-aos-duration="1100">
+                <h4 class="services">our services</h4>
+                <h2 class="services-download mb-2 mb-xl-4">Download Your Shows Watch Offline.</h2>
+                <p class="services-p">Lorem ipsum dolor sit amet, consecetur adipiscing elseddo eiusmod tempor.There are
+                    many variations of
+                    passages of lorem Ipsum available, but the majority have suffered alteration in some injected
+                    humour.</p>
+                <div class="d-md-flex justify-content-md-between align-items-md-center mt-2 mt-xl-5">
+                    <div class="border-style rounded-circle">
+                        <div class="radio rounded-circle">
+                            <i class="fa-solid fa-radio fa-3x radio-hover"></i>
+                        </div>
+                    </div>
+                    <div class="ms-lg-4 mt-3 mt-lg-0">
+                        <h2 class="service-p-head">Enjoy on Your TV.</h2>
+                        <p class="services-p mb-0">Lorem ipsum dolor sit amet, consecetur adipiscing elit, sed do
+                            eiusmod
+                            tempor.</p>
+                    </div>
+                </div>
+                <div class="d-md-flex justify-content-md-between align-items-md-center mt-4">
+                    <div class="border-style rounded-circle">
+                        <div class="radio rounded-circle">
+                            <i class="fa-solid fa-video fa-3x radio-hover"></i>
+                        </div>
+                    </div>
+                    <div class="ms-lg-4 mt-3 mt-lg-0">
+                        <h2 class="service-p-head">Watch Everywhere.</h2>
+                        <p class="services-p mb-0">Lorem ipsum dolor sit amet, consecetur adipiscing elit, sed do
+                            eiusmod
+                            tempor.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Services Section End -->
+<!-- Top Rated Section Start -->
+<section class="Top-movies-container py-5">
+    <div class="text-center pt-5 pb-2">
+        <h6 class="section-sub-heading">ONLINE STREAMING</h6>
+        <h2 class="section-heading">Top Rated {{currentTopRatedActive}}s</h2>
+    </div>
+    <div class="mt-lg-0 mb-4">
+        <div class="d-flex justify-content-center">
+            <button [ngClass]="currentTopRatedActive == 'movie'?'section-tab-active':'section-tab'"
+                (click)="displayTopRatedMovies()">movies</button>
+            <button [ngClass]="currentTopRatedActive == 'tv'?'section-tab-active text-nowrap':'section-tab text-nowrap'"
+                (click)="getTopRatedTv()">tv shows</button>
+            <button [ngClass]="currentTopRatedActive == 'person'?'section-tab-active me-0':'section-tab me-0'"
+                (click)="getPopularPersons()">persons</button>
+        </div>
+    </div>
+    <div class="container">
+        <owl-carousel-o [options]="customOptions" *ngIf="currentTopRatedDisplayed == 'movie'" data-aos="fade-down"
+            data-aos-duration="600">
+            <ng-container *ngFor="let TopRatedMovie of topRatedMoviesList ; let i=index">
+                <ng-template carouselSlide [id]="TopRatedMovie.id">
+                    <a [routerLink]="['/moviedetails',TopRatedMovie.id]" class="position-relative"><img
+                            [src]="imgSrcPrefix + TopRatedMovie.poster_path" [alt]="TopRatedMovie.title"
+                            [title]="TopRatedMovie.title" class="w-100 mb-4 rounded-3">
+                        <div class="position-absolute top-0 end-0 rate">
+                            <span>{{TopRatedMovie.vote_average.toFixed(1)}}</span>
+                        </div>
+                    </a>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h3 class="title w-75 main-hover cursor-pointer"
+                            [routerLink]="['/moviedetails',TopRatedMovie.id]">
+                            {{TopRatedMovie.title}}</h3>
+                        <p class="release-date main-color">{{TopRatedMovie.release_date.slice(0,4)}}</p>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <p class="language main-color">{{TopRatedMovie.original_language}}</p>
+                        <div>
+                            <p *ngIf="movieDetailsList[i]?.runtime != 0; else alternative" class="duration">
+                                <i class="fa-regular fa-clock me-1 main-color"></i>
+                                {{movieDetailsList[i]?.runtime}} min
+                            </p>
+                            <ng-template #alternative>
+                                <p>{{movieDetailsList[i]?.status}}</p>
+                            </ng-template>
+                        </div>
+                    </div>
+                </ng-template>
+            </ng-container>
+        </owl-carousel-o>
+        <owl-carousel-o [options]="customOptions" *ngIf="currentTopRatedDisplayed == 'tv'" data-aos="fade-down"
+            data-aos-duration="600">
+            <ng-container *ngFor="let topRatedTv of topRatedTvsList ; let i = index">
+                <ng-template carouselSlide [id]="topRatedTv.id">
+                    <div class="position-relative">
+                        <img [src]="imgSrcPrefix + topRatedTv.poster_path" [alt]="topRatedTv.name"
+                            [title]="topRatedTv.name" class="w-100 mb-4 rounded-3">
+                        <div class="position-absolute top-0 end-0 rate">
+                            <span>{{topRatedTv.vote_average.toFixed(1)}}</span>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h4 class="title w-75 main-hover">{{topRatedTv.name}}</h4>
+                        <p class="release-date main-color">{{topRatedTv.first_air_date.slice(0,4)}}</p>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <p class="language main-color">{{topRatedTv.original_language}}</p>
+                    </div>
+                </ng-template>
+            </ng-container>
+        </owl-carousel-o>
+        <owl-carousel-o [options]="customOptions" *ngIf="currentTopRatedDisplayed == 'person'" data-aos="fade-down"
+            data-aos-duration="600">
+            <ng-container *ngFor="let popularPerson of popularPersonsList">
+                <ng-template carouselSlide [id]="popularPerson.id">
+                    <div class="position-relative">
+                        <img [src]="imgSrcPrefix + popularPerson.profile_path" [alt]="popularPerson.name"
+                            [title]="popularPerson.name" class="w-100 mb-4 rounded-3">
+                        <h3 class="title main-hover">{{popularPerson.name}}</h3>
+                    </div>
+                </ng-template>
+            </ng-container>
+        </owl-carousel-o>
+    </div>
+</section>
+<!-- Top Rated Section End -->
+<!-- Live Section Start -->
+<section class="live-section-container">
+    <div class="container py-5">
+        <div class="row align-items-center py-4 overflow-hidden">
+            <div class="col-lg-6" data-aos="fade-right" data-aos-duration="1100">
+                <div>
+                    <p class="services live">online streaming</p>
+                    <h2 class="live-head">Live Movie &amp; TV Shows For Friends &amp; Family</h2>
+                    <p class="live-p py-3 mb-0">Lorem ipsum dolor sit amet, consecetur adipiscing elseddo eiusmod There
+                        are many variations of passages of lorem Ipsum available, but the majority have suffered
+                        alteration.</p>
+                    <div class="d-flex align-items-center">
+                        <h4 class="hd">HD 4K</h4>
+                        <div class="active-customer ms-4">
+                            <h6>20K+</h6>
+                            <p>Active Customer</p>
+                        </div>
+                    </div>
+                    <button class="live-watch-now my-3"><i _ngcontent-ocs-c23="" class="fa-solid fa-play me-2"></i>
+                        Watch
+                        now</button>
+                </div>
+            </div>
+            <div class="col-lg-6" data-aos="fade-left" data-aos-duration="1100">
+                <div>
+                    <img src="assets/images/live_img.png" alt="live_img" class="w-100">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Live Section End -->
+<!-- Now Playing Section Start -->
+<section class="now-playing-container py-5">
+    <div class="container">
+        <div class="text-center pt-5 pb-2">
+            <h6 class="section-sub-heading">ONLINE STREAMING</h6>
+            <h2 class="section-heading">Now Playing {{currentNowPlayingActive}}s</h2>
+        </div>
+        <div class="d-flex justify-content-center mb-4">
+            <button [ngClass]="currentNowPlayingActive == 'movie'?'section-tab-active':'section-tab'"
+                (click)="displayPlayingMovies()">movies</button>
+            <button
+                [ngClass]="currentNowPlayingActive == 'tv'?'section-tab-active text-nowrap':'section-tab text-nowrap'"
+                (click)="getNowPlayingTv()">tv shows</button>
+        </div>
+        <owl-carousel-o [options]="customOptions" *ngIf="currentNowPlayingDisplayed == 'movie'" data-aos="fade-down"
+            data-aos-duration="600">
+            <ng-container *ngFor="let nowPlayingMovie of nowPlayingMoviesList ; let i=index">
+                <ng-template carouselSlide [id]="nowPlayingMovie.id">
+                    <a [routerLink]="['/moviedetails',nowPlayingMovie.id]" class="position-relative"><img
+                            [src]="imgSrcPrefix + nowPlayingMovie.poster_path" [alt]="nowPlayingMovie.title"
+                            [title]="nowPlayingMovie.title" class="w-100 mb-4 rounded-3">
+                        <div class="position-absolute top-0 end-0 rate">
+                            <span>{{nowPlayingMovie.vote_average.toFixed(1)}}</span>
+                        </div>
+                    </a>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h3 class="title w-75 main-hover cursor-pointer"
+                            [routerLink]="['/moviedetails',nowPlayingMovie.id]">
+                            {{nowPlayingMovie.title}}</h3>
+                        <p class="release-date main-color">{{nowPlayingMovie.release_date.slice(0,4)}}</p>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <p class="language main-color">{{nowPlayingMovie.original_language}}</p>
+                        <div>
+                            <p *ngIf="movieDetailsList[i]?.runtime != 0" class="duration">
+                                <i class="fa-regular fa-clock me-1 main-color"></i>
+                                {{movieDetailsList[i]?.runtime}} min
+                            </p>
+                        </div>
+                    </div>
+                </ng-template>
+            </ng-container>
+        </owl-carousel-o>
+        <owl-carousel-o [options]="customOptions" *ngIf="currentNowPlayingDisplayed == 'tv'" data-aos="fade-down"
+            data-aos-duration="600">
+            <ng-container *ngFor="let nowPlayingTv of nowPlayingTvsList ; let i = index">
+                <ng-template carouselSlide [id]="nowPlayingTv.id">
+                    <div class="position-relative">
+                        <img [src]="imgSrcPrefix + nowPlayingTv.poster_path" [alt]="nowPlayingTv.name"
+                            [title]="nowPlayingTv.name" class="w-100 mb-4 rounded-3">
+                        <div class="position-absolute top-0 end-0 rate">
+                            <span>{{nowPlayingTv.vote_average.toFixed(1)}}</span>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h4 class="title w-75 main-hover">{{nowPlayingTv.name}}</h4>
+                        <p class="release-date main-color">{{nowPlayingTv.first_air_date.slice(0,4)}}</p>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <p class="language main-color">{{nowPlayingTv.original_language}}</p>
+                    </div>
+                </ng-template>
+            </ng-container>
+        </owl-carousel-o>
+    </div>
+</section>
+<!-- Now Playing Section End -->

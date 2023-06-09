@@ -1,0 +1,78 @@
+//Main Movie Details Styles
+.movie-details-container{
+    background-image: url('../../assets/images/movie_details_bg.jpg');
+    background-size: 100% 100%;
+}
+.play-icon{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+.w-fit-content{
+    width: fit-content;
+}
+.trailer-link{
+    width: 100%;
+    height: 75vh;
+}
+.movie-name{
+    font-size: 48px;
+    font-weight: var(--font-weight-600);
+}
+.movie-status{
+    font-size: 26px;
+    font-weight: var(--font-weight-700);
+    letter-spacing: 0.8px;
+    color: var(--main-color);
+}
+.home-movie-info p{
+    text-transform: uppercase;
+    margin-bottom:0px !important ;
+    color: var(--secondary-color);
+}
+.home-movie-info div:first-child p:first-child{
+    background-color: var(--white-color);
+    color: var(--black-color);
+    padding: 6px 10px;
+}
+.home-movie-info div:first-child p:nth-child(2){
+    background-color: transparent;
+    color: var(--white-color);
+    padding: 5px 8px;
+    border: var(--white-color) solid 1px;
+}
+.home-movie-info div:first-child p:first-child,.home-movie-info div:first-child p:nth-child(2){
+    font-size: 12px;
+    font-weight: var(--font-weight-700);
+    letter-spacing: 1px;
+    margin-right: 8px;
+}
+.home-movie-info div:first-child p:nth-child(3),.home-movie-info div:first-child p:nth-child(4){
+    text-transform: capitalize;
+    margin: 0px 4px;
+    color: var(--secondary-color);
+    font-weight: var(--font-weight-500);
+    transition: all 0.5s;
+}
+.add-to-fav{
+    color: var(--secondary-color);
+    padding: 4px 10px;
+    display: flex;
+    width: fit-content;
+    font-size: 18px;
+    transition: all .5s;
+}
+.add-to-fav p:hover i{
+    color: var(--main-color);
+}
+//Responsive Movie Details Styles
+@media (max-width:768px) {
+    .movie-status{
+        font-size: 22px;
+        font-weight: var(--font-weight-600);
+    }
+    .movie-name{
+        font-size: 44px;
+    }
+}

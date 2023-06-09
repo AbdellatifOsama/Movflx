@@ -1,0 +1,116 @@
+<div class="section-bg">
+    <div class="section-bg-overlay">
+        <div class="container h-100">
+            <div class="d-flex py-4 align-items-center justify-content-center flex-column h-100">
+                <h2 class="page-head main-color">Search</h2>
+                <p>
+                    <a routerLink="/home" class="page-navigate main-hover">Home</a>
+                    <span> | </span>
+                    <span class="page-current-name">Search</span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="search-main-bg">
+    <div class="container pt-4">
+        <div class="search-div mb-4 w-75 d-flex align-items-center">
+            <input class="search-input w-75" placeholder="Search" id="search" [value]="searchText.getValue()">
+            <i class=" fa-solid fa-magnifying-glass main-color ms-auto me-3"
+                [routerLink]="['/search',searchText.getValue()]"></i>
+            <select class="rounded-3" id="filter-by">
+                <option value="movie" [selected]="searchType.getValue() == 'movie'">Movies</option>
+                <option value="tv" [selected]="searchType.getValue() == 'tv'">Tvs</option>
+                <option value="person" [selected]="searchType.getValue() == 'person'">Persons</option>
+            </select>
+        </div>
+        <div class="row" *ngIf="searchType.getValue() == 'movie'">
+            <div class="col-lg-3 col-md-4" *ngFor="let searchResult of searchResultList">
+                <div class="position-relative"
+                    *ngIf="searchResult.title != null && searchResult.original_language != null">
+                    <a [routerLink]="['/moviedetails',searchResult.id]" class="position-relative">
+                        <img [src]="searchResult.poster_path != null ? imgSrcPrefix + searchResult.poster_path:'assets/images/image-not-found.png'"
+                            [alt]="searchResult.title" [title]="searchResult.title" class="w-100 h-390 mb-4 rounded-3">
+                    </a>
+                    <div class="position-absolute top-0 end-0 rate">
+                        <span>{{searchResult.vote_average}}</span>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h3 class="title w-75 main-hover cursor-pointer">
+                            {{searchResult.title}}</h3>
+                        <p class="release-date main-color">{{searchResult.release_date?.slice(0,4)}}</p>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <p class="language main-color">{{searchResult.original_language}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row" *ngIf="searchType.getValue() == 'tv'">
+            <div class="col-lg-3 col-md-4" *ngFor="let searchResult of searchResultList">
+                <div class="position-relative"
+                    *ngIf="searchResult.name != null &&searchResult.original_language != null">
+                    <a [routerLink]="['/tvdetails',searchResult.id]" class="position-relative">
+                        <img [src]="searchResult.poster_path != null ? imgSrcPrefix + searchResult.poster_path:'assets/images/image-not-found.png'"
+                            [alt]="searchResult.name" [title]="searchResult.name" class="w-100 h-390 mb-4 rounded-3">
+                    </a>
+                    <div class="position-absolute top-0 end-0 rate">
+                        <span>{{searchResult.vote_average}}</span>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h3 class="title w-75 main-hover cursor-pointer">
+                            {{searchResult.name}}</h3>
+                        <p class="release-date main-color">{{searchResult.first_air_date?.slice(0,4)}}</p>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <p class="language main-color">{{searchResult.original_language}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row" *ngIf="searchType.getValue() == 'person'">
+            <div class="col-lg-3 col-md-4 mb-3" *ngFor="let searchResult of searchResultList">
+                <div class="position-relative" *ngIf="searchResult.name != null">
+                    <a class="position-relative">
+                        <img [src]="searchResult.profile_path != null ? imgSrcPrefix + searchResult.profile_path:'assets/images/image-not-found.png'"
+                            [alt]="searchResult.name" [title]="searchResult.name" class="w-100 h-390 mb-2 rounded-3">
+                    </a>
+                    <div class="d-flex justify-content-center align-items-center">
+                        <h3 class="title main-hover cursor-pointer">
+                            {{searchResult.name}}</h3>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="d-flex pb-5">
+            <div *ngIf="current_page != 1">
+                <button class='cursor-pointer paginator-number' (click)="page_request(1)">
+                    <span><i class="fa-solid fa-angles-left"></i></span>
+                </button>
+            </div>
+            <div *ngIf="current_page != 1">
+                <button class='cursor-pointer paginator-number' (click)="page_request(current_page-1)">
+                    <span><i class="fa-solid fa-angle-left"></i></span>
+                </button>
+            </div>
+            <div *ngFor="let page of page_numbers">
+                <button (click)="page_request(page)"
+                    [class]="current_page == page ?'cursor-pointer paginator-number-active' : 'cursor-pointer paginator-number'">
+                    <span>{{page}}</span>
+                </button>
+            </div>
+            <div *ngIf="current_page != max_page_numbers">
+                <button class='cursor-pointer paginator-number' (click)="next()">
+                    <span><i class="fa-solid fa-angle-right"></i></span>
+                </button>
+            </div>
+            <div *ngIf="current_page != max_page_numbers">
+                <button class='cursor-pointer paginator-number' (click)="page_request(max_page_numbers)">
+                    <span><i class="fa-solid fa-angles-right"></i></span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

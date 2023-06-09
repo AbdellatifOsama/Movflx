@@ -1,0 +1,98 @@
+.img-background{
+    background-image: url("../../assets/images/pricing_bg.jpg");
+    background-size: 100% 100%;
+}
+.contact-head{
+    font-size: 19px;
+    font-weight: 600;
+    position: relative;
+    margin-bottom: 45px;
+}
+.contact-head:after{
+    content: "";
+    position: absolute;
+    top: 30px;
+    left: 0px;
+    background-color: var(--main-color);
+    width: 50px;
+    height: 5px;
+    border-radius: 24px;
+}
+.contact-form{
+    border: 1px solid #232226;
+}
+.contact-form-field{
+    border: 1px solid #1f1e24;
+    background: #1f1e24;
+    border-radius: 4px;
+    color: #bcbcbc;
+    box-shadow: 0px 1px 7px 0px rgb(0 0 0 / 46%);
+    font-weight: 500;
+    padding: 14px 25px;
+    transition: .3s linear;
+    outline: none;
+}
+.contact-form-field:focus-visible{
+    border-color: var(--main-color);
+}
+.send-btn{
+    background: #12151e none repeat scroll 0 0;
+    border: 2px solid var(--main-color);
+    border-radius: 50px;
+    color: #e3dfdf;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    line-height: 1.5;
+    margin-bottom: 0;
+    padding: 16px 34px;
+    text-align: center;
+    text-transform: uppercase;
+    transition: all 0.3s ease 0s;
+}
+.send-btn:hover{
+    background-color: var(--main-color);
+    color: #12151e;
+}
+.info{
+    background: #1f1e24;
+    padding: 40px 34px 60px;
+    box-shadow: 0px 1px 7px 0px rgb(0 0 0 / 46%);
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 26px;
+    color: #bcbcbc;
+}
+.info p span{
+    font-size: 16px;
+    color: #fafafa;
+}
+.bottom-border{
+    border-bottom: 3px solid #232226;
+}
+.info-details li span{
+    color: #fafafa;
+    font-size: 16px;
+}
+.icon-container{
+    color: #12151e;
+    background-color: var(--main-color);
+    width: 50px !important;
+    height: 50px !important;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.icon{
+    width: 50px;
+    height: 50px;
+}
+.gmap_canvas {
+    overflow: hidden;
+    background: none !important;
+    height: 600px;
+    width: 100%;
+}

@@ -1,0 +1,6 @@
+<app-navbar class="position-absolute end-0 start-0" *ngIf="isLoginPageActive.getValue()"></app-navbar>
+<router-outlet></router-outlet>
+<app-footer></app-footer>
+<div class="onload-page" *ngIf="!isLoaded.getValue()">
+  <img src="assets/images/preloader.svg" alt="">
+</div>
