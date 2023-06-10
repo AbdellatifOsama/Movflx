@@ -1,0 +1,19 @@
+{
+  "Version": 1,
+  "Hash": "I8a7AdxP1Eaw8d1hyqi/E1RVzGUCuj9RABwYHxqy9QU=",
+  "Source": "MovflxAPI",
+  "BasePath": "_content/MovflxAPI",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [
+    {
+      "Name": "MovflxAPI\\wwwroot",
+      "Source": "MovflxAPI",
+      "ContentRoot": "C:\\Users\\abdel\\source\\repos\\MovflxAPI\\MovflxAPI\\wwwroot\\",
+      "BasePath": "_content/MovflxAPI",
+      "Pattern": "**"
+    }
+  ],
+  "Assets": []
+}
